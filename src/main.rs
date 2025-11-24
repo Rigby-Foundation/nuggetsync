@@ -34,7 +34,7 @@ async fn main() {
         )
         .with_state(pool);
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3001));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3001));
     tracing::info!("NuggetSync Server listening on {}", addr);
 
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
