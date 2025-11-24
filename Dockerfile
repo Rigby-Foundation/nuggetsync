@@ -4,7 +4,7 @@ FROM rust:1.91-slim-bookworm as builder
 WORKDIR /usr/src/app
 
 # Install build dependencies (libpq for diesel)
-RUN apt-get update && apt-get install -y libpq-dev && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libpq-dev pkg-config && rm -rf /var/lib/apt/lists/*
 
 # Copy manifests
 COPY Cargo.toml Cargo.lock ./
@@ -29,7 +29,7 @@ FROM debian:bookworm-slim
 WORKDIR /app
 
 # Install runtime dependencies
-RUN apt-get update && apt-get install -y libpq5 ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libpq5 ca-certificates pkg-config && rm -rf /var/lib/apt/lists/*
 
 # Copy binary from builder
 COPY --from=builder /usr/src/app/target/release/nuggetsync /app/nuggetsync
