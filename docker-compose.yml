@@ -1,0 +1,31 @@
+services:
+  app:
+    build: .
+    image: ghcr.io/rigby-foundation/nuggetsync:latest
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/nuggetsync
+      - REDIS_URL=redis://redis:6379
+      - RUST_LOG=nugget_sync_server=debug
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  db:
+    image: postgres:18-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=nuggetsync
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
