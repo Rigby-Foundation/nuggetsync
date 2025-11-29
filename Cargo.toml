@@ -1,6 +1,6 @@
 [package]
 name = "nuggetsync"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 
 [dependencies]
@@ -15,7 +15,8 @@ tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
 diesel = { version = "2.3.3", features = ["postgres", "r2d2", "chrono"] }
 pq-sys = { version = "0.7.5", features = ["bundled"] }
-redis = "0.27.0"
+redis = "0.32.7"
 chrono = { version = "0.4.38", features = ["serde"] }
 uuid = { version = "1.10.0", features = ["v4", "serde"] }
 async-trait = "0.1.83"
+diesel_migrations = "2.3.1"

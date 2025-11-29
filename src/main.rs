@@ -24,6 +24,12 @@ async fn main() {
 
     let pool = utils::db::establish_connection();
 
+    if let Err(e) = utils::db::run_migrations(&pool) {
+        tracing::error!("Failed to run migrations: {}", e);
+    } else {
+        tracing::info!("Migrations executed successfully");
+    }
+
     let app = Router::new()
         .route("/health", get(health_check))
         .route("/register", post(usermodule::register_user))
